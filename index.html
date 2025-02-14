@@ -21,6 +21,78 @@
 
     <!--css file-->
     <link rel="stylesheet" href="styles.css" />
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .chatbot-header {
+      background-color: #0078d7;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      height: 300px;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .message.user {
+      background-color: #0078d7;
+      color: white;
+      align-self: flex-end;
+    }
+    .message.bot {
+      background-color: #e4e6eb;
+      color: #333;
+      align-self: flex-start;
+    }
+    .chatbot-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+    .chatbot-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 0 0 0 8px;
+    }
+    .chatbot-input button {
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 0 0 8px 0;
+    }
+    .chatbot-input button:hover {
+      background-color: #005bb5;
+    }
+  </style>
   </head>
   <body>
     <!-- header section starts  -->
@@ -74,6 +146,42 @@
       </div>
     </section>
 
+    <div class="chatbot-container">
+      <div class="chatbot-header">Student Assistant</div>
+      <div class="chatbot-messages" id="chatbotMessages"></div>
+      <div class="chatbot-input">
+        <input type="text" id="chatInput" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script>
+      const messagesContainer = document.getElementById('chatbotMessages');
+
+    function appendMessage(content, sender) {
+    const message = document.createElement('div');
+    message.className = `message ${sender}`;
+    message.textContent = content;
+    messagesContainer.appendChild(message);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function sendMessage() {
+      const chatInput = document.getElementById('chatInput');
+      const userMessage = chatInput.value.trim();
+
+      if (userMessage) {
+        appendMessage(userMessage, 'user');
+        chatInput.value = '';
+      
+        // Simulate bot response
+        setTimeout(() => {
+          const botResponse = `You said: "${userMessage}". How can I assist you further?`;
+          appendMessage(botResponse, 'bot');
+        }, 500);
+      }
+    }
+    </script>
     <!-- service section starts  -->
     <section class="service" id="service">
       <h1 class="heading">our <span>events</span></h1>
