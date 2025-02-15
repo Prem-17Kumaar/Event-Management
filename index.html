@@ -28,14 +28,14 @@
     }
     .chatbot-container {
       position: fixed;
-      bottom: 20px;
+      bottom: 80px;
       right: 20px;
       width: 300px;
       background-color: #fff;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       overflow: hidden;
-      display: flex;
+      display: none;
       flex-direction: column;
     }
     .chatbot-header {
@@ -90,6 +90,22 @@
     .chatbot-input button:hover {
       background-color: #005bb5;
     }
+    .help-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
   </head>
   <body>
@@ -115,7 +131,7 @@
     <section class="home" id="home">
       <div class="content">
         <h3>
-          welcome to hindusthan college of arts & sceince  "Experience the Excellence"
+          Welcome to Hindusthan College of Arts & Science  "Experience the Excellence"
           <span> hicas events </span>
         </h3>
         <a href="#" class="btn">get quote</a>
@@ -145,42 +161,54 @@
       </div>
     </section>
 
-    <div class="chatbot-container">
-      <div class="chatbot-header">Student Assistant</div>
-      <div class="chatbot-messages" id="chatbotMessages"></div>
-      <div class="chatbot-input">
-        <input type="text" id="chatInput" placeholder="Type your message here...">
-        <button onclick="sendMessage()">Send</button>
-      </div>
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">Student Assistant</div>
+        <div class="chatbot-messages" id="chatbotMessages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
+    
+    <button class="help-button" onclick="toggleChatbot()">?</button>
 
     <script>
-      const messagesContainer = document.getElementById('chatbotMessages');
+        const messagesContainer = document.getElementById('chatbotMessages');
 
-    function appendMessage(content, sender) {
-    const message = document.createElement('div');
-    message.className = `message ${sender}`;
-    message.textContent = content;
-    messagesContainer.appendChild(message);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+        function appendMessage(content, sender) {
+            const message = document.createElement('div');
+            message.className = `message ${sender}`;
+            message.textContent = content;
+            messagesContainer.appendChild(message);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-    function sendMessage() {
-      const chatInput = document.getElementById('chatInput');
-      const userMessage = chatInput.value.trim();
+        function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const userMessage = chatInput.value.trim();
 
-      if (userMessage) {
-        appendMessage(userMessage, 'user');
-        chatInput.value = '';
-      
-        // Simulate bot response
-        setTimeout(() => {
-          const botResponse = `You said: "${userMessage}". How can I assist you further?`;
-          appendMessage(botResponse, 'bot');
-        }, 500);
-      }
-    }
+            if (userMessage) {
+                appendMessage(userMessage, 'user');
+                chatInput.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const botResponse = `You said: "${userMessage}". How can I assist you further?`;
+                    appendMessage(botResponse, 'bot');
+                }, 500);
+            }
+        }
+
+        function toggleChatbot() {
+            var chatbot = document.getElementById("chatbot");
+            if (chatbot.style.display === "none" || chatbot.style.display === "") {
+                chatbot.style.display = "flex";
+            } else {
+                chatbot.style.display = "none";
+            }
+        }
     </script>
+    
     <!-- service section starts  -->
     <section class="service" id="service">
       <h1 class="heading">our <span>events</span></h1>
